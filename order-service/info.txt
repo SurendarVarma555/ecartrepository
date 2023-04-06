@@ -1,0 +1,7 @@
+
+place order api:
+// 1. Create Order Table at server side
+// 2. order entity -> Save the order details with status order created
+// 3. Product service -> Call the product service to block/book our products and  Reduce the quantity
+//    Stock is handy or not , if anyone order two apples 13 at one time then we reduce the quantity
+// 4. Payment service -> success - mark as complete or else Cancelled
