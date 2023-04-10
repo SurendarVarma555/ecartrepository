@@ -26,4 +26,12 @@ public class ProductController {
         return new ResponseEntity<>(productResponse, HttpStatus.OK);
 
     }
+
+    /*API for Reduce the quantity of Product based on two parameters i.e.., ProductId and Quantity*/
+    @PutMapping("/reduceQuantity/{id}")
+    public ResponseEntity<Void> reduceQuantity (@PathVariable("id") long productId, @RequestParam long quantity){
+    productService.reduceQuantity(productId,quantity);
+    return new ResponseEntity<>(HttpStatus.OK);
+    }
+
 }
