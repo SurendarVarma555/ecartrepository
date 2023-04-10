@@ -1,6 +1,7 @@
 package com.dailycodebuffer.service.impl;
 
 import com.dailycodebuffer.entity.Order;
+import com.dailycodebuffer.external.client.ProductService;
 import com.dailycodebuffer.model.OrderRequest;
 import com.dailycodebuffer.repository.OrderRepository;
 import com.dailycodebuffer.service.OrderService;
@@ -16,10 +17,21 @@ public class OrderServiceImpl implements OrderService{
 
     @Autowired
     private OrderRepository orderRepository;
+
+    @Autowired
+    private ProductService productService;
+
     @Override
     public long placeOrder(OrderRequest orderRequest){
+
         log.info("Placing order request : {}",orderRequest);
-//        convert order request into order entity so that we need to save at server side
+
+        // Rest Api call using feign client
+        productService.reduceQuantity(orderRequest.getProductId(),orderRequest.getQuantity());
+
+        log.info("Creating order with status CREATED... ");
+
+        //convert order request into order entity so that we need to save at server side
         log.info("Creating Order with Status CREATED");
         Order order = Order.builder()
                 .amount(orderRequest.getAmount())
